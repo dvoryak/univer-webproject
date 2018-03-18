@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Forecasting adaptive model </title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+
+    </script>
+    <script type="application/javascript" src="js/main.js">
+    </script>
+    <script type="application/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="site-wrapper">
+    <div class="header">
+        <h1>Forecasting adaptive model</h1>
+    </div>
+
+    <div class="content close">
+        <p> Use the textarea or file uploader for providing us with data </p>
+        <textarea name="data" id="data" placeholder="Set a range, use (,. or space) for separating numbers"></textarea>
+        </br>
+        <input type="file" id="file" class=""/>
+        </br>
+        <input type="button" id="btn" class="btn btn-success" value="Let's start">
+        <span id="result"></span>
+    </div>
+
+    <div class="result">
+        <h4> Range </h4>
+        <div id="range-table center">
+            <table class="center">
+                <th>1</th>
+                <th>2</th>
+                <th>3</th>
+                <th>4</th>
+                <th>5</th>
+                <th>6</th>
+                <th>7</th>
+                <th>8</th>
+                <th>9</th>
+                <th>10</th>
+                <th>11</th>
+                <th>12</th>
+                <tr>
+                    <td>20.599</td>
+                    <td>21.422</td>
+                    <td>-12.422</td>
+                    <td>101.90</td>
+                    <td>24.599</td>
+                    <td>2.422</td>
+                    <td>-52.422</td>
+                    <td>151.90</td>
+                    <td>22.599</td>
+                    <td>49.422</td>
+                    <td>-72.422</td>
+                    <td>81.90</td>
+                </tr>
+            </table>
+        </div>
+        <h4> Seasons components </h4>
+        <div id="season-table">
+            <table class="center">
+                <th>S1</th>
+                <th>S2</th>
+                <th>S3</th>
+                <th>S4</th>
+
+                <tr>
+                    <td>20.599</td>
+                    <td>21.422</td>
+                    <td>-12.422</td>
+                    <td>101.90</td>
+                </tr>
+            </table>
+        </div>
+        <h4> Forecast for next four period </h4>
+        <div id="forecast-table">
+            <table class="center">
+                <th>#11</th>
+                <th>#12</th>
+                <th>#13</th>
+                <th>#13</th>
+
+                <tr>
+                    <td>9.599</td>
+                    <td>21.422</td>
+                    <td>-41.422</td>
+                    <td>11.90</td>
+                </tr>
+            </table>
+        </div>
+        <h4>Graphic</h4>
+        <div id="graphic" class="center">
+        </div>
+    </div>
+</div>
+</body>
+</html>
