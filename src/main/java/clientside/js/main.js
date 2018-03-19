@@ -1,23 +1,50 @@
+$(document).ready( function () {
 
-; (function() {
-    document.addEventListener("DOMContentLoaded",function() {
-        document.querySelector("#butt").addEventListener("click", send);
+    $("#send-btn").click(function() {
+        var data = $("#data").val();
+
+        if(checkData(data)) {
+            $("#content").addClass("close");
+            $("#result").removeClass("close");
+
+            $.ajax({
+                url: "http://localhost:8080/go",
+                type: "get",
+                data: {
+                    data: "text"
+                },
+                success: function (resp) {
+                    console.log(resp);
+                },
+
+                error : function () {
+                    alert("err");
+                }
+            });
+        } else {
+            //TODO
+        }
+
     });
 
-    function send() {
-        var url = "http://localhost:8080/go?data=";
-        var data = document.querySelector("#data").value;
-        url += data;
-        var req  = new XMLHttpRequest()
-        req.open('GET', url, true)
-        req.onload = function () {
-            if (req.readyState == 4 && req.status == "200") {
-                var resp = JSON.parse(req.responseText);
-                document.querySelector("#txt").value = resp.forecast[0];
-            } else {
+
+    function checkData(data) {
+        var pattern = /,| /;
+        var arr = data.split(pattern);
+
+        for (var i in arr) {
+            var res = parseFloat(arr[i]);
+            if(isNaN(res)) {
+                return false;
             }
         }
-        req.send(null);
+
+        return true;
     }
 
-})();
+    function setResult() {
+        $("result ")
+    }
+
+
+});

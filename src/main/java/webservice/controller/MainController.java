@@ -13,6 +13,9 @@ public class MainController {
     @CrossOrigin
     public Response getForecast(@RequestParam(value = "data") String data) {
         System.out.println(data);
-        return new Response();
+
+        Response response = new Response();
+        response.setForecast(new Double[]{1.44,2.42,2.11,.33});
+        return response;
     }
 }
