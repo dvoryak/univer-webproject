@@ -36,13 +36,14 @@ public class MainController {
         Double[] forecastForAllPeriods = forecast
                 .getForecast(correctSeasonComponent, solutionOfEquation, range.size() + 1);
 
-        System.out.println();
 
         Response response = new Response();
         response.setForecast(forecastForAllPeriods);
         response.setRange(range.getList().toArray(new Double[]{}));
         response.setSeasonComponent(correctSeasonComponent.getList().toArray(new Double[]{}));
-
+        response.setForecastRange(forecast.getModelRange(solutionOfEquation,correctSeasonComponent,range)
+                .getList().toArray(new Double[]{}));
+        response.setLinearTrend(solutionOfEquation);
         return response;
     }
 }

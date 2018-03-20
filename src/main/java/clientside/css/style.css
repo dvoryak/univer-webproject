@@ -72,12 +72,15 @@ table, th, td {
 }
 
 #graphic {
-    width: 500px;
-    height: 400px;
-    background-image: url("../test.png");
+    width: 600px;
+    height: 500px;
 }
 
 #range-table {
     width: 60%;
+}
 
+#linear-trend {
+    color: white;
+    font-size: 20px;
 }

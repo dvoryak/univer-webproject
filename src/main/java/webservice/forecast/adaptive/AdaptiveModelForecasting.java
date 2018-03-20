@@ -202,6 +202,18 @@ public class AdaptiveModelForecasting {
         return out;
     }
 
+    public Range getModelRange(Double[] resultOfEquation, Range correctSeasonComponent, Range initialRange) {
+        Range out = new Range();
+
+        for (int i = 0; i < initialRange.size(); i++) {
+            double value = resultOfEquation[1] + resultOfEquation[0] * (i + 1);
+            value = value + correctSeasonComponent.get(i % 4);
+            out.add(value);
+        }
+
+        return out;
+    }
+
 
   /*  public static void main(String[] args) {
         AdaptiveModelForecasting m = new AdaptiveModelForecasting();
