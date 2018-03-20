@@ -6,6 +6,7 @@ public class Response {
     private Double[] seasonComponent;
     private Double[] forecast;
 
+
     public Response() {
     }
 
@@ -32,4 +33,6 @@ public class Response {
     public void setRange(Double[] range) {
         this.range = range;
     }
+
+
 }

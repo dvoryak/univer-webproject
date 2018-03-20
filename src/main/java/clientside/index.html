@@ -28,7 +28,7 @@
         <h1>Forecasting adative model</h1>
     </div>
 
-    <div class="content">
+    <div id="data-bl">
         <p> Use the textarea or file uploader for providing us with data </p>
         <textarea name="data" id="data" placeholder="Set a range, use (,. or space) for separating numbers"></textarea>
         </br>
@@ -38,70 +38,24 @@
         <span id="result"></span>
     </div>
 
-    <div class="result close">
+    <div id="result-bl" class="close">
         <h4> Range </h4>
-        <div id="range-table center">
-            <table class="center">
-                <th>1</th>
-                <th>2</th>
-                <th>3</th>
-                <th>4</th>
-                <th>5</th>
-                <th>6</th>
-                <th>7</th>
-                <th>8</th>
-                <th>9</th>
-                <th>10</th>
-                <th>11</th>
-                <th>12</th>
-                <tr>
-                    <td>20.599</td>
-                    <td>21.422</td>
-                    <td>-12.422</td>
-                    <td>101.90</td>
-                    <td>24.599</td>
-                    <td>2.422</td>
-                    <td>-52.422</td>
-                    <td>151.90</td>
-                    <td>22.599</td>
-                    <td>49.422</td>
-                    <td>-72.422</td>
-                    <td>81.90</td>
-                </tr>
-            </table>
-        </div>
+        <table class="center" id="range-table">
+        </table>
+
         <h4> Seasons components </h4>
-        <div id="season-table">
-            <table class="center">
-                <th>S1</th>
-                <th>S2</th>
-                <th>S3</th>
-                <th>S4</th>
+        <table class="center" id="season-table">
+            <th>S1</th>
+            <th>S2</th>
+            <th>S3</th>
+            <th>S4</th>
+        </table>
 
-                <tr>
-                    <td>20.599</td>
-                    <td>21.422</td>
-                    <td>-12.422</td>
-                    <td>101.90</td>
-                </tr>
-            </table>
-        </div>
         <h4> Forecast for next four period </h4>
-        <div id="forecast-table">
-            <table class="center">
-                <th>#11</th>
-                <th>#12</th>
-                <th>#13</th>
-                <th>#13</th>
+        <table class="center" id="forecast-table">
 
-                <tr>
-                    <td>9.599</td>
-                    <td>21.422</td>
-                    <td>-41.422</td>
-                    <td>11.90</td>
-                </tr>
-            </table>
-        </div>
+        </table>
+
         <h4>Graphic</h4>
         <div id="graphic" class="center">
         </div>

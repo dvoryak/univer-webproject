@@ -3,7 +3,6 @@ package webservice.forecast.adaptive;
 import webservice.forecast.adaptive.util.Util;
 import webservice.model.Range;
 
-import java.util.Arrays;
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.stream.Stream;
@@ -18,125 +17,100 @@ import static webservice.forecast.adaptive.util.Util.summOfArray;
 Период усреднения: Квартал (4)
 Делать прогноз на  периода : ?
  */
-public class AdaptiveModelRangeForecast {
+
+public class AdaptiveModelForecasting {
 
     private final int PERIOD = 4;
 
     private Range data = new Range();
 
     {
-        data.loadFrom(
-                160,
-                130,
-                159,
-                165,
-                156,
-                141,
-                157,
-                172,
-                157,
-                145,
-                163,
-                177,
-                102,
-                123,
-                233,
-                122,
-                127,
-                143,
-                165,
-                180,
-                172,
-                170,
-                169,
-                161,
-                200,
-                190,
-                188,
-                201,
-                204,
-                196,
-                289
-       );
+
     }
 
 
-    public AdaptiveModelRangeForecast() {
+    public AdaptiveModelForecasting() {
     }
 
-    public Range getMovingAverage(Range data) {
-        Range range = new Range(data.size());
+    public Range getMovingAverage(Range range) {
+        Range out = new Range(range.size());
 
 
-        for (int k = 0; k < data.size(); k++) {
+        for (int k = 0; k < range.size(); k++) {
             double result = 0;
             for (int i = k; i < k + PERIOD; i = i + 2) {
-                result += data.get(i) + data.get(i + 1);
+                result += range.get(i) + range.get(i + 1);
             }
 
-            range.add(result / PERIOD);
+            out.add(result / PERIOD);
 
-            if (k == data.size() - PERIOD) break;
+            if (k == range.size() - PERIOD) break;
         }
 
-        return range;
+        return out;
     }
 
-    public Range getCentreMovingAverage(Range data) {
-        Range range = new Range(data.size());
+    public Range getCentreMovingAverage(Range range) {
+        Range out = new Range(range.size());
 
         int n = 2;
-        for (int k = 0; k < data.size(); k++) {
+        for (int k = 0; k < range.size(); k++) {
             double result = 0;
             for (int i = k; i < k + n; i = i + 2) {
                 if (k == 0) {
-                    range.add(data.get(i) / 2);
+                    out.add(range.get(i) / 2);
                 }
-                result += data.get(i) + data.get(i + 1);
+                result += range.get(i) + range.get(i + 1);
             }
 
-            range.add(result / n);
+            out.add(result / n);
 
-            if (k == data.size() - n) break;
+            if (k == range.size() - n) break;
         }
 
-        return range;
+        return out;
     }
 
     public Range getSeasonComponentAssessment(Range initialRange, Range centreMovingAvg) {
-        Range range = new Range();
+        Range out = new Range();
 
         int k = 1;
 
         for (int i = 0; i < centreMovingAvg.size(); i++) {
-
-            range.add(initialRange.get(i + k) - centreMovingAvg.get(i));
+            out.add(initialRange.get(i + k) - centreMovingAvg.get(i));
         }
 
-        return range;
+        return out;
     }
 
-    public Range getCorrectSeasonComponent(Range data) {
-
+    public Range getCorrectSeasonComponent(Range seasonComponent) {
         Range assessmentAVG = new Range();
-        Deque<Double> deque = new LinkedList<>(data.getList());
-        deque.addFirst(null);
-        deque.add(null);
-        deque.add(null);
-        Double[][] matrix = new Double[(int) Math.ceil((double) (deque.size()) / PERIOD)][PERIOD];
+        Deque<Double> seasonComponentDeque = new LinkedList<>(seasonComponent.getList());
+        seasonComponentDeque.addFirst(null);
+        seasonComponentDeque.add(null);
+
+        if(seasonComponentDeque.size() % PERIOD != 0)  {
+            seasonComponentDeque.add(null);
+        }
+
+        int n = (int) Math.ceil((double) (seasonComponentDeque.size()) / PERIOD);
+
+        Double[][] matrix = new Double[n][PERIOD];
         Util.fillMatrixByZero(matrix);
+
 
         for (int i = 0; i < matrix.length; i++) {
             for (int j = 0; j < matrix[0].length; j++) {
-                if (deque.size() > 0) {
-                    Double rez = deque.poll();
+                if (seasonComponentDeque.size() > 0) {
+                    Double rez = seasonComponentDeque.poll();
                     matrix[i][j] = rez;
                 }
             }
         }
 
+
         Double sum;
-        int countCeil = 0;
+        int countCeil;
         for (int i = 0; i < matrix[0].length; i++) {
             sum = 0d;
             countCeil = 0;
@@ -159,19 +133,18 @@ public class AdaptiveModelRangeForecast {
     }
 
 
-    public Range excludedInfluenceComponent(Range correctSeasonComponent, Range data) {
-
+    public Range getExcludedInfluenceComponent(Range correctSeasonComponent, Range initialRange) {
         Range range = new Range();
         Deque<Double> deque = new LinkedList<>();
-        int k = (int) Math.ceil((double) (data.size()) / PERIOD);
+        int k = (int) Math.ceil((double) (initialRange.size()) / PERIOD);
 
         for (int i = 0; i < k; i++) {
             deque.addAll(correctSeasonComponent.getList());
             for (int j = 0; j < 4; j++) {
-                if(j + (i * 4) == data.size()) {
+                if(j + (i * 4) == initialRange.size()) {
                     break;
                 }
-                double iData = data.get(j + (i * 4));
+                double iData = initialRange.get(j + (i * 4));
                 double iStack = deque.poll();
                 range.add(iData - iStack);
             }
@@ -212,39 +185,39 @@ public class AdaptiveModelRangeForecast {
         rez[0] = delta_a1 / delta;
         rez[1] = delta_a2 / delta;
 
-        System.out.println(rez[0]);
-        System.out.println(rez[1]);
+       // System.out.println(rez[0] + " " + rez[1]) ;
         return rez;
 
     }
 
-    public Double[] getForecastForAllPeriods(Range correctSeasonComponent, Double[] result, int from) {
+    public Double[] getForecast(Range correctSeasonComponent, Double[] resultOfEquation, int fromIndex) {
         Double[] out = new Double[4];
-        System.out.println(correctSeasonComponent);
+
         for (int i = 0; i < 4; i++) {
-            int index = (from + 3) % 4;
-            out[i] = (result[1] + result[0] * from) + correctSeasonComponent.get(index);
-            from++;
+            int index = (fromIndex + 3) % 4;
+            out[i] = (resultOfEquation[1] + resultOfEquation[0] * fromIndex) + correctSeasonComponent.get(index);
+            fromIndex++;
         }
 
         return out;
     }
 
 
-    public static void main(String[] args) {
-        AdaptiveModelRangeForecast m = new AdaptiveModelRangeForecast();
+  /*  public static void main(String[] args) {
+        AdaptiveModelForecasting m = new AdaptiveModelForecasting();
 
         Range s1 = m.getMovingAverage(m.data);
         Range s2 = m.getCentreMovingAverage(s1);
         Range s3 = m.getSeasonComponentAssessment(m.data, s2);
         Range s4 = m.getCorrectSeasonComponent(s3);
-        Range s5 = m.excludedInfluenceComponent(s4, m.data);
-        //System.out.println(s5);
-        //System.out.println(s5);
+        Range s5 = m.getExcludedInfluenceComponent(s4, m.data);
         //System.out.println(s4);
         //System.out.println(s5);
-        Double[] forecastForAllPeriods = m.getForecastForAllPeriods(s4, m.getSolutionOfEquation(s5), 32);
+        //System.out.println(m.data.size());
+        //System.out.println(s4);
+        //System.out.println(s5);
+        Double[] getForecast = m.getForecast(s4, m.getSolutionOfEquation(s5), 32);
 
-        System.out.println(Arrays.toString(forecastForAllPeriods));
-    }
+        System.out.println(Arrays.toString(getForecast));
+    }*/
 }
