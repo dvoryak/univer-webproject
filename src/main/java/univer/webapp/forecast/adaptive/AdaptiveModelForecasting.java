@@ -1,13 +1,13 @@
-package webservice.forecast.adaptive;
+package univer.webapp.forecast.adaptive;
 
-import webservice.forecast.adaptive.util.Util;
-import webservice.model.Range;
+import univer.webapp.forecast.adaptive.util.Util;
+import univer.webapp.model.Range;
 
 import java.util.Deque;
 import java.util.LinkedList;
 import java.util.stream.Stream;
 
-import static webservice.forecast.adaptive.util.Util.summOfArray;
+import static univer.webapp.forecast.adaptive.util.Util.summOfArray;
 
 
 /*

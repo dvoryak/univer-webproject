@@ -1,4 +1,4 @@
-package webservice.model;
+package univer.webapp.model;
 
 import java.io.File;
 import java.util.ArrayList;

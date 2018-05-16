@@ -1,14 +1,14 @@
-package webservice.controller;
+package univer.webapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import webservice.controller.util.Util;
-import webservice.forecast.adaptive.AdaptiveModelForecasting;
-import webservice.model.Range;
-import webservice.model.Response;
+import univer.webapp.controller.util.Util;
+import univer.webapp.forecast.adaptive.AdaptiveModelForecasting;
+import univer.webapp.model.Range;
+import univer.webapp.model.Response;
 
 
 @RestController

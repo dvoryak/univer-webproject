@@ -1,4 +1,4 @@
-package webservice.model;
+package univer.webapp.model;
 
 public class Response {
 

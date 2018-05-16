@@ -1,11 +1,11 @@
-package webservice.application;
+package univer.webapp.application;
 
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import webservice.controller.MainController;
-import webservice.forecast.adaptive.AdaptiveModelForecasting;
+import univer.webapp.controller.MainController;
+import univer.webapp.forecast.adaptive.AdaptiveModelForecasting;
 
 @SpringBootApplication
 @Configurable

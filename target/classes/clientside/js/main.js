@@ -14,7 +14,9 @@ $(document).ready(function () {
                 },
                 success: function (resp) {
                     console.log(resp);
-                    document.querySelector("#linear-trend").innerText = (resp.linearTrend);
+                    var trend = "T= " + parseFloat(resp.linearTrend[1]).toFixed(3)
+                        + " + " + parseFloat(resp.linearTrend[0]).toFixed(3) + "t";
+                    document.querySelector("#linear-trend").innerText = trend;
                     setTable($("#range-table"), resp.range, true);
                     setTable($("#season-table"), resp.seasonComponent);
                     setTable($("#forecast-table"), resp.forecast, generateHeaderForecast(resp.range.length));

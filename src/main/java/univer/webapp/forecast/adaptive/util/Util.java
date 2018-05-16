@@ -1,4 +1,4 @@
-package webservice.forecast.adaptive.util;
+package univer.webapp.forecast.adaptive.util;
 
 public class Util {
 
