@@ -7,7 +7,7 @@ $(document).ready(function () {
             $("#result-bl").removeClass("close");
 
             $.ajax({
-                url: "http://localhost:8080/go",
+                url: "/go",
                 type: "get",
                 data: {
                     data: range
